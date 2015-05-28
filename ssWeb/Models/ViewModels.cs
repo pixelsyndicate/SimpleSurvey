@@ -1,11 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Web.Mvc;
+using ssWeb.Repositories;
 
-namespace ssWeb
+namespace ssWeb.Models
 {
 
+    public class SelectListHelper
+    {
+        private readonly IUserRepository _userRepo;
+
+        public SelectListHelper(IUserRepository userRepo)
+        {
+            _userRepo = userRepo;
+        }
+
+        public MultiSelectList GetRoles(string[] selectedValues)
+        {
+            IEnumerable<Role> Roles = new List<Role>();
+
+            var userEnum = _userRepo.GetAll() as IEnumerable<User>;
+            if (userEnum != null) Roles = userEnum.Select(x => x.Role1);
+
+
+            //using (_db = new simpleSurvey1Entities())
+            //{
+            //    var query = from r in _db.Roles select r;
+            //    foreach (var role in query)
+            //    {
+            //        Roles.Add(new Role() { ID = role.ID, Name = role.Name });
+            //    }
+            //}
+
+            return new MultiSelectList(Roles, "ID", "Name", selectedValues);
+
+        }
+    }
 
     public class SurveyViewModel : ISurveyViewModel
     {
@@ -35,4 +66,7 @@ namespace ssWeb
         ICollection<SurveyResponse> SurveyResponses { get; set; }
         User User { get; set; }
     }
+
+    
+
 }

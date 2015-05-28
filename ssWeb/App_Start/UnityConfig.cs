@@ -39,7 +39,7 @@ namespace ssWeb.App_Start
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<ISurveyRepository, SurveyRepository>();
-
+            container.RegisterType<IUserRepository, UserRepository>();
             // singleton
 
         }

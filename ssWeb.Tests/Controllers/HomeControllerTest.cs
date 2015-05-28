@@ -24,11 +24,11 @@ namespace ssWeb.Tests.Controllers
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController(new Mock<ISurveyRepository>().Object);
+            HomeController controller = new HomeController(new Mock<ISurveyRepository>().Object, new Mock<IUserRepository>().Object);
 
             // Act
             ViewResult result = controller.Index() as ViewResult;
-            
+
 
             // Assert
             Assert.IsNotNull(result);
@@ -40,7 +40,7 @@ namespace ssWeb.Tests.Controllers
         public void About()
         {
             // Arrange
-            HomeController controller = new HomeController(new Mock<ISurveyRepository>().Object);
+            HomeController controller = new HomeController(new Mock<ISurveyRepository>().Object, new Mock<IUserRepository>().Object);
 
             // Act
             ViewResult result = controller.About() as ViewResult;
@@ -53,7 +53,7 @@ namespace ssWeb.Tests.Controllers
         public void Contact()
         {
             // Arrange
-            HomeController controller = new HomeController(new Mock<ISurveyRepository>().Object);
+            HomeController controller = new HomeController(new Mock<ISurveyRepository>().Object, new Mock<IUserRepository>().Object);
 
             // Act
             ViewResult result = controller.Contact() as ViewResult;

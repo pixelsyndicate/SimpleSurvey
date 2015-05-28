@@ -9,10 +9,12 @@ namespace ssWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ISurveyRepository _surveyRepo;
+        private readonly IUserRepository _userRepo;
 
-        public HomeController(ISurveyRepository surveyRepo)
+        public HomeController(ISurveyRepository surveyRepo, IUserRepository userRepo)
         {
             _surveyRepo = surveyRepo;
+            _userRepo = userRepo;
         }
 
         public ActionResult Index()

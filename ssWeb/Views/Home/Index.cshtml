@@ -1,25 +1,31 @@
-﻿@model ssWeb.Models.SurveyQuestionAnswerViewModel
-
-@{
-    Layout = null;
-    var survey = Model.Survey;
-    var response = Model.Response;
-    var responseBy = Model.ResponseBy;
-    var surveyBy = Model.SurveyCreatedBy;
+﻿@{
+    ViewBag.Title = "Home Page";
 }
 
-<!DOCTYPE html>
+<div class="jumbotron">
+    <h1>Demo Survey Engine</h1>
+    <p class="lead">This is a practice application built for the purpose of understanding needs in a flexible survey engine using Entity Framework, Unity and Moq</p>
+    <p><a href="https://github.com/pixelsyndicate/SimpleSurvey" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
 
-<html>
-<head>
-    <title>Examine SurveyQuestionAnswerViewModel</title>
-</head>
-<body>
-    <div>
-        @Html.DisplayForModel(survey)
-        @Html.DisplayForModel(surveyBy)
-        @Html.DisplayForModel(response)
-        @Html.DisplayForModel(responseBy)
+<div class="row">
+    <div class="col-md-4">
+        <h2>Why MVC</h2>
+        <p>
+            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+            enables a clean separation of concerns and gives you full control over markup
+            for enjoyable, agile development.
+        </p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
     </div>
-</body>
-</html>
+    <div class="col-md-4">
+        <h2>Extensible with NuGet</h2>
+        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Where would I host this</h2>
+        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    </div>
+</div>

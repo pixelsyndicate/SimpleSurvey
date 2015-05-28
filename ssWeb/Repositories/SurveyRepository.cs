@@ -7,7 +7,7 @@ namespace ssWeb.Repositories
 {
     public class SurveyRepository : ISurveyRepository
     {
-
+        private simpleSurvey1Entities _db = new simpleSurvey1Entities();
         private List<Survey> _surveys = new List<Survey>();
         private readonly Survey _survey;
         private int _nextId = 1;
@@ -18,9 +18,9 @@ namespace ssWeb.Repositories
             // TODO : Code to get the list of all the records in database
 
             // test get values from db
-            using (simpleSurvey1Entities db = new simpleSurvey1Entities())
+            using (_db = new simpleSurvey1Entities())
             {
-                var surveyModels = from s in db.Surveys
+                var surveyModels = from s in _db.Surveys
                                    // Response Filled By
                                    select s;
 
@@ -71,5 +71,4 @@ namespace ssWeb.Repositories
             return true;
         }
     }
-
 }
