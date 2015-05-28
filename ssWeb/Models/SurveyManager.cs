@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -17,6 +16,13 @@ namespace ssWeb.Models
             _surveyRepo = surveyRepo;
         }
 
+        public User GetNewUserFromIdentity()
+        {
+            User newUser = new User();
+
+            return newUser;
+            ;
+        }
 
         private void PopulateSurvey()
         {

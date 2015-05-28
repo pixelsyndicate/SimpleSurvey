@@ -7,18 +7,33 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ssWeb;
+using ssWeb.Repositories;
 
 namespace ssWeb.Controllers
 {
     public class SurveysController : Controller
     {
         private simpleSurvey1Entities db = new simpleSurvey1Entities();
+        private readonly ISurveyRepository _surveyRepo;
+        private readonly IUserRepository _userRepo;
+
+        public SurveysController(ISurveyRepository surveyRepo, IUserRepository userRepo)
+        {
+            _surveyRepo = surveyRepo;
+            _userRepo = userRepo;
+        }
 
         // GET: Surveys
         public ActionResult Index()
         {
-            var surveys = db.Surveys.Include(s => s.User);
-            return View(surveys.ToList());
+            // get surveys from repo
+            var surveys = _surveyRepo.GetAll() as List<Survey>;
+            foreach (var obj in surveys)
+            {
+                obj.User = _userRepo.Get(obj.CreatedBy);
+            }
+           // var surveysWithUsers = db.Surveys.Include(s => s.User);
+            return View(surveys);
         }
 
         // GET: Surveys/Details/5
@@ -28,7 +43,12 @@ namespace ssWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Survey survey = db.Surveys.Find(id);
+            var surveys = _surveyRepo.GetAll() as List<Survey>;
+            foreach (var obj in surveys)
+            {
+                obj.User = _userRepo.Get(obj.CreatedBy);
+            }
+            Survey survey = surveys.FirstOrDefault(x => x.ID == id);// db.Surveys.Find(id);
             if (survey == null)
             {
                 return HttpNotFound();
@@ -53,9 +73,27 @@ namespace ssWeb.Controllers
             if (ModelState.IsValid)
             {
                 var thisSurvey = survey;
-                // add a user to this survey
-                var user = db.Users.FirstOrDefault(x => x.ID == thisSurvey.CreatedBy);
 
+                // add a user to this survey if it's empty
+                if (thisSurvey.CreatedBy == 0)
+                {
+                    var user = db.Users.FirstOrDefault(x => x.ID == thisSurvey.CreatedBy);
+
+                    if (user != null)
+                    {
+                        thisSurvey.CreatedBy = user.ID;
+                    }
+                    else
+                    {
+                        // add new user to the table
+                        ssWeb.User newUser = new User()
+                        {
+                            
+                        };
+
+                        _userRepo.Add(newUser);
+                    }
+                }
                 db.Surveys.Add(thisSurvey);
                 db.SaveChanges();
                 return RedirectToAction("Index");
