@@ -1,0 +1,25 @@
+﻿@model ssWeb.Models.SurveyQuestionAnswerViewModel
+
+@{
+    Layout = null;
+    var survey = Model.Survey;
+    var response = Model.Response;
+    var responseBy = Model.ResponseBy;
+    var surveyBy = Model.SurveyCreatedBy;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Examine SurveyQuestionAnswerViewModel</title>
+</head>
+<body>
+    <div>
+        @Html.DisplayForModel(survey)
+        @Html.DisplayForModel(surveyBy)
+        @Html.DisplayForModel(response)
+        @Html.DisplayForModel(responseBy)
+    </div>
+</body>
+</html>
