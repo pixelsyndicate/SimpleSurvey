@@ -16,7 +16,7 @@ namespace ssWeb.Controllers
         private readonly IRoleRepository _roleRepo;
         private readonly IUserRepository _userRepo;
 
-        public UsersController(IRoleRepository roleRepo, IUserRepository userRepo)
+        public UsersController(IUserRepository userRepo, IRoleRepository roleRepo)
         {
             _roleRepo = roleRepo;
             _userRepo = userRepo;
@@ -28,7 +28,6 @@ namespace ssWeb.Controllers
             var users = _userRepo.GetAll(); // db.Users.Include(u => u.Role1);
             foreach (var user in users)
             {
-                var type = user.GetType();
                 user.Role1 = _roleRepo.Get(user.Role);
             }
             return View(users.ToList());
@@ -41,7 +40,7 @@ namespace ssWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = _userRepo.GetAll().FirstOrDefault(x => x.ID == id);
+            User user = _userRepo.Get(id.Value);// _userRepo.GetAll().FirstOrDefault(x => x.ID == id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -53,7 +52,7 @@ namespace ssWeb.Controllers
         public ActionResult Create()
         {
 
-            ViewBag.Role = new SelectList(_roleRepo.GetAll(), "ID", "Name");
+            ViewBag.Role = new SelectList(_roleRepo.GetAll() as List<Role>, "ID", "Name");
             return View();
         }
 
@@ -72,7 +71,7 @@ namespace ssWeb.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Role = new SelectList(_roleRepo.GetAll(), "ID", "Name", user.Role);
+            ViewBag.Role = new SelectList(_roleRepo.GetAll() as List<Role>, "ID", "Name", user.Role);
             return View(user);
         }
 
@@ -141,9 +140,9 @@ namespace ssWeb.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = _userRepo.Get(id);// db.Users.Find(id);
+            // User user = _userRepo.Get(id);// db.Users.Find(id);
 
-            _userRepo.Delete(user.ID);
+            _userRepo.Delete(id);
 
             //db.Users.Remove(user);
             //db.SaveChanges();

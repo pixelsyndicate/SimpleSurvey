@@ -124,20 +124,20 @@ namespace ssWeb.Models
 
         public SurveyQuestionAnswerViewModel GetSurveyViewModelBySurveyId(int id)
         {
+
             var rawSurvey = _surveyRepo.Get(id);
-            SurveyQuestionAnswerViewModel toReturn;
+            SurveyQuestionAnswerViewModel toReturnSingle;
+            List<SurveyQuestionAnswerViewModel> toReturnCollection;
             using (simpleSurvey1Entities db = new simpleSurvey1Entities())
             {
                 var surveyModel = from sq in db.Survey_Questions
                                   // join table surveys to questions
-                                  join survey in db.Surveys on sq.SurveyID equals survey.ID
-                                  // link to Surveys
+                                  join survey in db.Surveys on sq.SurveyID equals survey.ID // link to Surveys
+                                  join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID // Survey Created By
                                   join question in db.Questions on sq.QuestionID equals question.ID
                                   // link to Questions
                                   join surveyresponse in db.SurveyResponses on survey.ID equals surveyresponse.SurveyID
                                   // responses of Survey
-                                  join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID
-                                  // Survey Created By
                                   join responsefilledby in db.Users on surveyresponse.FilledBy equals responsefilledby.ID
                                   // Response Filled By
                                   where survey == rawSurvey
@@ -146,13 +146,48 @@ namespace ssWeb.Models
                                       Survey = survey,
                                       Response = surveyresponse,
                                       SurveyCreatedBy = surveyuser,
-                                      ResponseBy = responsefilledby
+                                      ResponseBy = responsefilledby,
+                                      UserRole = surveyuser.Role1
                                   };
 
-
-                toReturn = surveyModel.FirstOrDefault();
+                toReturnCollection = surveyModel.ToList();
+                toReturnSingle = surveyModel.FirstOrDefault();
             }
-            return toReturn;
+            return toReturnSingle;
+        }
+
+        public IList<SurveyQuestionAnswerViewModel> GetSurveyQuestionAnswerViewModels()
+        {
+            var rawSurveys = _surveyRepo.GetAll();
+
+
+            List<SurveyQuestionAnswerViewModel> toReturnCollection;
+            using (simpleSurvey1Entities db = new simpleSurvey1Entities())
+            {
+
+                var surveyModel = from sq in db.Survey_Questions
+                                  // join table surveys to questions
+                                  join survey in db.Surveys on sq.SurveyID equals survey.ID // link to Surveys
+                                  join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID // Survey Created By
+                                  join question in db.Questions on sq.QuestionID equals question.ID
+                                  // link to Questions
+                                  join surveyresponse in db.SurveyResponses on survey.ID equals surveyresponse.SurveyID
+                                  // responses of Survey
+                                  join responsefilledby in db.Users on surveyresponse.FilledBy equals responsefilledby.ID
+                                  // Response Filled By
+                                  select new SurveyQuestionAnswerViewModel
+                                  {
+                                      Survey = survey,
+                                      Response = surveyresponse,
+                                      SurveyCreatedBy = surveyuser,
+                                      ResponseBy = responsefilledby,
+                                      UserRole = surveyuser.Role1
+                                  };
+
+                toReturnCollection = surveyModel.ToList();
+            }
+
+            return toReturnCollection;
         }
     }
 

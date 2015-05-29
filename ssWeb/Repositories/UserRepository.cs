@@ -15,20 +15,19 @@ namespace ssWeb.Repositories
         private User _user;
         private int _nextId = 1;
 
-        public IEnumerable GetAll()
+        public IEnumerable<User> GetAll()
         {
+
             // TODO : Code to get the list of all the records in database
             using (_db = new simpleSurvey1Entities())
             {
-
+                _db.Configuration.ProxyCreationEnabled = false;
                 var userModels = from u in _db.Users
                                  join r in _db.Roles on u.Role equals r.ID
                                  // Response Filled By
                                  select u;
 
                 _users = new List<User>(userModels);
-
-                return userModels;
             }
             return _users;
         }

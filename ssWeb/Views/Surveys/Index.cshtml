@@ -1,9 +1,11 @@
-﻿@model IEnumerable<ssWeb.Survey>
+﻿@using System.ServiceModel.Description
+@using ssWeb.Services
+@model IEnumerable<ssWeb.Survey>
 
 @{
     ViewBag.Title = "Index";
-    var userLoggedIn = User.Identity.Name.Replace("GO\\", string.Empty);
-    var userTableId = Model.FirstOrDefault(x => x.User.UserName == userLoggedIn);
+    var userLoggedIn = Helpers.TranslateIdentityToUserRecord(User.Identity.Name);//.Replace("GO\\", string.Empty);
+    var userTableId = userLoggedIn.ID;
 }
 
 <h2>Index</h2>
@@ -53,7 +55,8 @@
                 @Html.DisplayFor(modelItem => item.Publish)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.FirstName)
+                <a href="/Users/Edit/@item.User.ID">@Html.DisplayFor(modelItem => item.User.FirstName)</a>
+
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |

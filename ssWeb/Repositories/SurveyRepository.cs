@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using ssWeb.Models;
 
 namespace ssWeb.Repositories
 {
@@ -21,8 +23,10 @@ namespace ssWeb.Repositories
             // test get values from db
             using (_db = new simpleSurvey1Entities())
             {
+                _db.Configuration.ProxyCreationEnabled = false;
+
                 var surveyModels = from s in _db.Surveys
-                                   // Response Filled By
+                                   join u in _db.Users on s.CreatedBy equals u.ID
                                    select s;
 
 
@@ -100,5 +104,25 @@ namespace ssWeb.Repositories
             _surveys.RemoveAll(p => p.ID == id);
             return true;
         }
+
+        /// <summary>
+        /// Calls SurveyManager.GetSurveyViewModelBySurveyId
+        /// </summary>
+        /// <returns>SurveyQuestionAnswerViewModel</returns>
+        public SurveyQuestionAnswerViewModel GetCompleteDataSet(int id)
+        {
+            SurveyManager sm = new SurveyManager(new SurveyRepository());
+            var data = sm.GetSurveyViewModelBySurveyId(id);
+
+            return data;
+        }
+
+        public IList<SurveyQuestionAnswerViewModel> GetCompleteDataSet()
+        {
+            SurveyManager sm = new SurveyManager(new SurveyRepository());
+            var data = sm.GetSurveyQuestionAnswerViewModels();
+
+            return data;
+        } 
     }
 }

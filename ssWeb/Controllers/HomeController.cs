@@ -19,10 +19,11 @@ namespace ssWeb.Controllers
 
         public ActionResult Index()
         {
-          //  IEnumerable data = _surveyRepo.GetAll();
-            SurveyManager sm = new SurveyManager(_surveyRepo);
-           var data = sm.GetSurveyViewModelBySurveyId(1);
-            return View(data);
+
+            // test to get complete dataset
+            //  var completeModel = _surveyRepo.GetCompleteDataSet();
+
+            return View();
         }
 
         public ActionResult About()
