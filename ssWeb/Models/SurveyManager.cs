@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -156,6 +157,14 @@ namespace ssWeb.Models
             return toReturnSingle;
         }
 
+        public bool? IsActive(int id)
+        {
+            var getModels = GetSurveyQuestionAnswerViewModels();
+            var lastOne = getModels.LastOrDefault(i => i.Survey.ID == id);
+            
+            return (lastOne == null) ? (bool?)null : lastOne.Survey.Publish;
+        }
+
         public IList<SurveyQuestionAnswerViewModel> GetSurveyQuestionAnswerViewModels()
         {
             var rawSurveys = _surveyRepo.GetAll();
@@ -195,5 +204,6 @@ namespace ssWeb.Models
     {
 
         SurveyQuestionAnswerViewModel GetSurveyViewModelBySurveyId(int id);
+        bool? IsActive(int id);
     }
 }

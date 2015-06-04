@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ssWeb.Models;
 using ssWeb.Repositories;
 using System.Linq;
 using Moq;
+using Moq.Language;
 
 
 namespace ssWeb.Tests.Repositories
@@ -12,42 +14,63 @@ namespace ssWeb.Tests.Repositories
     [TestClass]
     public class SurveyRepositoryTests
     {
+
+        [TestMethod]
+        public void TestMock4()
+        {
+
+            var mock = new Mock<ISurveyManager>();
+
+            // Create your own responses from the mock method call
+            mock.Setup(framework => framework.IsActive(3)).Returns(false);
+            mock.Setup(framework => framework.IsActive(2)).Returns(true);
+            mock.Setup(framework => framework.IsActive(1)).Returns((bool?) null);
+            
+
+            // Hand mock.Object as a collaborator and exercise it, 
+            // like calling methods on it...
+            ISurveyManager sman = mock.Object;
+            bool isActive2 = sman.IsActive(2).Value;
+             Assert.IsTrue(isActive2);
+            bool? isActive1 = sman.IsActive(1);
+            Assert.IsNull(isActive1);
+            bool isActive3 = sman.IsActive(3).Value;
+            Assert.IsFalse(isActive3);
+
+            // Verify that the given method was indeed called with the expected value at most once
+            mock.Verify(s => s.IsActive(1), Times.AtMostOnce());
+            mock.Verify(s => s.IsActive(2), Times.AtMostOnce());
+            mock.Verify(s => s.IsActive(3), Times.AtMostOnce());
+
+            Assert.IsNull(isActive1);
+        }
+
         [TestMethod]
         public void SurveyManager_GetSurveyQuestionAnswerViewModels()
         {
-            //// Arrange
-            SurveyManager sMan = new SurveyManager(new Mock<ISurveyRepository>().Object);
+            // Arrange
+
+            // one way to compare
+            var mock = new Mock<ISurveyRepository>(MockBehavior.Strict);
+            mock.Setup(x => x.GetAll()).Returns(new List<String>());
+
+            var list = new List<Survey> { new Survey() };
+            var surveyRepo = Mock.Of<ISurveyRepository>(x => x.GetAll() == list);
+
+
+            SurveyManager sMan = new SurveyManager(mock.Object);
+
+
             IList<SurveyQuestionAnswerViewModel> toReturnCollection;
 
             //// Act
-            // var results = sMan.GetSurveyQuestionAnswerViewModels();
-            //using (simpleSurvey1Entities db = new simpleSurvey1Entities())
-            //{
-            //    var surveyModel = from sq in db.Survey_Questions
-            //                      // join table surveys to questions
-            //                      join survey in db.Surveys on sq.SurveyID equals survey.ID // link to Surveys
-            //                      join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID // Survey Created By
-            //                      join question in db.Questions on sq.QuestionID equals question.ID
-            //                      // link to Questions
-            //                      join surveyresponse in db.SurveyResponses on survey.ID equals surveyresponse.SurveyID
-            //                      // responses of Survey
-            //                      join responsefilledby in db.Users on surveyresponse.FilledBy equals responsefilledby.ID
-            //                      // Response Filled By
-            //                      select new SurveyQuestionAnswerViewModel
-            //                      {
-            //                          Survey = survey,
-            //                          Response = surveyresponse,
-            //                          SurveyCreatedBy = surveyuser,
-            //                          ResponseBy = responsefilledby,
-            //                          UserRole = surveyuser.Role1
-            //                      };
-
-            //    toReturnCollection = surveyModel.ToList();
-            //}
+        
 
 
             // Assert
             Assert.IsNotNull(sMan);
+
+            Assert.IsNotNull(surveyRepo);
         }
     }
 }
