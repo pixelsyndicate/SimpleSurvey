@@ -35,13 +35,28 @@ namespace ssWeb.App_Start
         {
             // NOTE: To load from web.config uncomment the line below. Make sure to add a Microsoft.Practices.Unity.Configuration to the using statements.
             // container.LoadConfiguration();
-            
+
 
             // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
+
             container.RegisterType<ISurveyRepository, SurveyRepository>();
+            container.RegisterType<ISurveyResponsesRepository, SurveyResponsesRepository>();
+
+#if DEBUG
+            container.RegisterType<IUserRepository, FakeUserRepository>();
+            container.RegisterType<IRoleRepository, FakeRoleRepository>();
+            container.RegisterType<IQuestionRepository, FakeQuestionRepository>();
+#else
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IRoleRepository, RoleRepository>();
+            container.RegisterType<IQuestionRepository, QuestionRepository>();
+#endif
+
+            // container.RegisterType<IProductRepository, ProductRepository>();
+
+
+
+
             // singleton
 
         }

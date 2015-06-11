@@ -41,8 +41,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoPoco">
+      <HintPath>..\packages\AutoPoco.1.0.0.0\lib\AutoPoco.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Faker.NET4">
+      <HintPath>..\packages\Faker.Net.1.0.3\lib\net40\Faker.NET4.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -151,14 +157,17 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\QuestionsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SurveyResponsesController.cs" />
     <Compile Include="Controllers\SurveysController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ISurveyViewModel.cs" />
-    <Compile Include="Models\SurveyManager.cs" />
+    <Compile Include="Models\SimpleSurveyManager.cs" />
+    <Compile Include="Models\ISimpleSurveyManager.cs" />
     <Compile Include="Models\SurveyQuestionAnswerViewModel.cs" />
     <Compile Include="Models\SurveyViewModel.cs" />
     <Compile Include="Models\ViewModels.cs" />
@@ -166,11 +175,17 @@
     <Compile Include="Question.cs">
       <DependentUpon>SimpleSurveyModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\FakeRoleRepository.cs" />
+    <Compile Include="Repositories\FakeUserRepository.cs" />
+    <Compile Include="Repositories\IQuestionRepository.cs" />
     <Compile Include="Repositories\IRoleRepository.cs" />
     <Compile Include="Repositories\ISurveyRepository.cs" />
+    <Compile Include="Repositories\ISurveyResponsesRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\QuestionRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
     <Compile Include="Repositories\SurveyRepository.cs" />
+    <Compile Include="Repositories\SurveyResponsesRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
     <Compile Include="Role.cs">
       <DependentUpon>SimpleSurveyModel.tt</DependentUpon>
@@ -277,7 +292,17 @@
     <Content Include="Views\Roles\Details.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Questions\Create.cshtml" />
+    <Content Include="Views\Questions\Delete.cshtml" />
+    <Content Include="Views\Questions\Details.cshtml" />
+    <Content Include="Views\Questions\Edit.cshtml" />
+    <Content Include="Views\Questions\Index.cshtml" />
     <None Include="Views\Shared\_topNav.cshtml" />
+    <Content Include="Views\SurveyResponses\Create.cshtml" />
+    <Content Include="Views\SurveyResponses\Delete.cshtml" />
+    <Content Include="Views\SurveyResponses\Details.cshtml" />
+    <Content Include="Views\SurveyResponses\Edit.cshtml" />
+    <Content Include="Views\SurveyResponses\Index.cshtml" />
     <None Include="Views\UserRoles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

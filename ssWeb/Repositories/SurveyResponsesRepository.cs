@@ -1,23 +1,21 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using ssWeb.Models;
 
 namespace ssWeb.Repositories
 {
-    public class SurveyRepository : ISurveyRepository
+    public class SurveyResponsesRepository : ISurveyResponsesRepository
     {
         private simpleSurvey1Entities _db = new simpleSurvey1Entities();
-        private List<Survey> _surveys = new List<Survey>();
-        private Survey _survey;
         private int _nextId = 1;
+        private SurveyResponse _question;
+        private List<SurveyResponse> _questions = new List<SurveyResponse>();
 
         public IEnumerable GetAll()
         {
-
             // TODO : Code to get the list of all the records in database
 
             // test get values from db
@@ -25,32 +23,37 @@ namespace ssWeb.Repositories
             {
                 _db.Configuration.ProxyCreationEnabled = false;
 
-                var surveyModels = from s in _db.Surveys
-                                   join u in _db.Users on s.CreatedBy equals u.ID
-                                   join sq in _db.Survey_Questions on s.ID equals sq.SurveyID
-                                   join q in _db.Questions on sq.QuestionID equals q.ID
-                                   select s;
+                var responseModels = from r in _db.SurveyResponses
+                    join q in _db.Questions on r.QuestionID equals q.ID
+                    join s in _db.Surveys on r.SurveyID equals s.ID
+                    select r;
 
 
-                _surveys = new List<Survey>(surveyModels);
+                _questions = new List<SurveyResponse>(responseModels);
             }
-            _nextId = _surveys.LastOrDefault().ID + 1;
-            return _surveys;
+            _nextId = _questions.LastOrDefault().ID + 1;
+            return _questions;
         }
 
-        public Survey Get(int id)
+        public SurveyResponse Get(int id)
         {
             // TO DO : Code to find a record in database
-            _surveys = GetAll() as List<Survey>;
-            return _surveys.FirstOrDefault(p => p.ID == id);//.Find(p => p.ID == id);
+            _questions = GetAll() as List<SurveyResponse>;
+            return _questions.FirstOrDefault(p => p.ID == id); //.Find(p => p.ID == id);
         }
-        public Survey Add(Survey item)
+
+        /// <summary>
+        ///     Adds and saves the supplied question to the database
+        /// </summary>
+        /// <param name="item">Question object</param>
+        /// <returns>Question object</returns>
+        public SurveyResponse Add(SurveyResponse item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException("item");
             }
-            _surveys = GetAll() as List<Survey>;
+            _questions = GetAll() as List<SurveyResponse>;
 
             // TO DO : Code to save record into database
             item.ID = _nextId++;
@@ -60,10 +63,11 @@ namespace ssWeb.Repositories
                 _db.SaveChanges();
             }
 
-            _surveys.Add(item);
+            _questions.Add(item);
             return item;
         }
-        public bool Update(Survey item)
+
+        public bool Update(SurveyResponse item)
         {
             if (item == null)
             {
@@ -71,8 +75,8 @@ namespace ssWeb.Repositories
             }
 
             // TO DO : Code to update record into database
-            _surveys = GetAll() as List<Survey>;
-            int index = _surveys.FindIndex(p => p.ID == item.ID);
+            _questions = GetAll() as List<SurveyResponse>;
+            var index = _questions.FindIndex(p => p.ID == item.ID);
             if (index == -1)
             {
                 return false;
@@ -83,28 +87,29 @@ namespace ssWeb.Repositories
                 _db.Entry(item).State = EntityState.Modified;
                 _db.SaveChanges();
             }
-            _surveys.RemoveAt(index);
-            _surveys.Add(item);
+            _questions.RemoveAt(index);
+            _questions.Add(item);
             return true;
         }
+
         public bool Delete(int id)
         {
             // TO DO : Code to remove the records from database
-            _surveys = GetAll() as List<Survey>;
-            int index = _surveys.FindIndex(p => p.ID == id);
+            _questions = GetAll() as List<SurveyResponse>;
+            var index = _questions.FindIndex(p => p.ID == id);
             if (index == -1)
             {
                 return false;
             }
 
-            _survey = Get(id);
+            _question = Get(id);
             using (_db = new simpleSurvey1Entities())
             {
-                _db.Entry(_survey).State = EntityState.Deleted;
+                _db.Entry(_question).State = EntityState.Deleted;
                 _db.SaveChanges();
             }
 
-            _surveys.RemoveAll(p => p.ID == id);
+            _questions.RemoveAll(p => p.ID == id);
             return true;
         }
 
@@ -114,7 +119,7 @@ namespace ssWeb.Repositories
         /// <returns>SurveyQuestionAnswerViewModel</returns>
         public SurveyQuestionAnswerViewModel GetCompleteDataSet(int id)
         {
-            return SimpleSurveyManager.GetSurveymanager().GetSurveyViewModelBySurveyId(id);
+            return SimpleSurveyManager.GetSurveyResponseManager().GetSurveyViewModelBySurveyId(id);
         }
 
         /// <summary>
@@ -123,7 +128,9 @@ namespace ssWeb.Repositories
         /// <returns>List of SurveyQuestionAnswerViewModel</returns>
         public IList<SurveyQuestionAnswerViewModel> GetCompleteDataSet()
         {
-            return SimpleSurveyManager.GetSurveymanager().GetSurveyQuestionAnswerViewModels();
+            return SimpleSurveyManager.GetSurveyResponseManager().GetSurveyQuestionAnswerViewModels();
         }
+
+
     }
 }

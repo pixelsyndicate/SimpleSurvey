@@ -29,6 +29,7 @@ namespace ssWeb.Repositories
 
                 _users = new List<User>(userModels);
             }
+            _nextId = _users.LastOrDefault().ID + 1;
             return _users;
         }
 

@@ -30,6 +30,7 @@ namespace ssWeb.Repositories
 
                 _roles = new List<Role>(_queryRoles);
             }
+            _nextId = _roles.LastOrDefault().ID + 1;
             return _roles;
         }
 

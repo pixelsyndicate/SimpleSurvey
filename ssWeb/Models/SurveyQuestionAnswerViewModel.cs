@@ -12,6 +12,7 @@ namespace ssWeb.Models
         public SurveyResponse Response { get; set; }
         public User SurveyCreatedBy { get; set; }
         public User ResponseBy { get; set; }
-        public Role UserRole { get; set; }
+        public Role UserTakingSurveyRole { get; set; }
+        public Role UserCreatingSurveyRole { get; set; }
     }
 }

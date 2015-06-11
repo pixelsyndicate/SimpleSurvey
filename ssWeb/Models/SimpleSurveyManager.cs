@@ -1,20 +1,28 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using ssWeb.Repositories;
 
 namespace ssWeb.Models
 {
-    public class SurveyManager : ISurveyManager
+    public class SimpleSurveyManager : ISimpleSurveyManager
     {
-        private readonly ISurveyRepository _surveyRepo;
+        private ISurveyRepository _surveyRepo;
+        private IQuestionRepository _questionRepo;
+        private ISurveyResponsesRepository _responseRepo;
 
-        public SurveyManager(ISurveyRepository surveyRepo)
+        private SimpleSurveyManager(ISurveyRepository surveyRepo)
         {
             _surveyRepo = surveyRepo;
+        }
+
+        private SimpleSurveyManager(IQuestionRepository questionRepo)
+        {
+            _questionRepo = questionRepo;
+        }
+
+        private SimpleSurveyManager(ISurveyResponsesRepository responseRepo)
+        {
+            _responseRepo = responseRepo;
         }
 
         public User GetNewUserFromIdentity()
@@ -128,30 +136,28 @@ namespace ssWeb.Models
 
             var rawSurvey = _surveyRepo.Get(id);
             SurveyQuestionAnswerViewModel toReturnSingle;
-            List<SurveyQuestionAnswerViewModel> toReturnCollection;
             using (simpleSurvey1Entities db = new simpleSurvey1Entities())
             {
                 var surveyModel = from sq in db.Survey_Questions
-                                  // join table surveys to questions
-                                  join survey in db.Surveys on sq.SurveyID equals survey.ID // link to Surveys
-                                  join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID // Survey Created By
-                                  join question in db.Questions on sq.QuestionID equals question.ID
-                                  // link to Questions
-                                  join surveyresponse in db.SurveyResponses on survey.ID equals surveyresponse.SurveyID
-                                  // responses of Survey
-                                  join responsefilledby in db.Users on surveyresponse.FilledBy equals responsefilledby.ID
-                                  // Response Filled By
-                                  where survey == rawSurvey
-                                  select new SurveyQuestionAnswerViewModel
-                                  {
-                                      Survey = survey,
-                                      Response = surveyresponse,
-                                      SurveyCreatedBy = surveyuser,
-                                      ResponseBy = responsefilledby,
-                                      UserRole = surveyuser.Role1
-                                  };
+                    // join table surveys to questions
+                    join survey in db.Surveys on sq.SurveyID equals survey.ID // link to Surveys
+                    join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID // Survey Created By
+                    join question in db.Questions on sq.QuestionID equals question.ID
+                    // link to Questions
+                    join surveyresponse in db.SurveyResponses on survey.ID equals surveyresponse.SurveyID
+                    // responses of Survey
+                    join responsefilledby in db.Users on surveyresponse.FilledBy equals responsefilledby.ID
+                    // Response Filled By
+                    where survey == rawSurvey
+                    select new SurveyQuestionAnswerViewModel
+                    {
+                        Survey = survey,
+                        Response = surveyresponse,
+                        SurveyCreatedBy = surveyuser,
+                        ResponseBy = responsefilledby,
+                        UserTakingSurveyRole = surveyuser.Role1
+                    };
 
-                toReturnCollection = surveyModel.ToList();
                 toReturnSingle = surveyModel.FirstOrDefault();
             }
             return toReturnSingle;
@@ -161,49 +167,59 @@ namespace ssWeb.Models
         {
             var getModels = GetSurveyQuestionAnswerViewModels();
             var lastOne = getModels.LastOrDefault(i => i.Survey.ID == id);
-            
+
             return (lastOne == null) ? (bool?)null : lastOne.Survey.Publish;
         }
 
+        /// <summary>
+        /// This is used to get a complete model of the Surveys, Responses, and Who created the survey and responsed to the survey questions
+        /// </summary>
+        /// <returns></returns>
         public IList<SurveyQuestionAnswerViewModel> GetSurveyQuestionAnswerViewModels()
         {
-            var rawSurveys = _surveyRepo.GetAll();
-
 
             List<SurveyQuestionAnswerViewModel> toReturnCollection;
             using (simpleSurvey1Entities db = new simpleSurvey1Entities())
             {
 
                 var surveyModel = from sq in db.Survey_Questions
-                                  // join table surveys to questions
-                                  join survey in db.Surveys on sq.SurveyID equals survey.ID // link to Surveys
-                                  join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID // Survey Created By
-                                  join question in db.Questions on sq.QuestionID equals question.ID
-                                  // link to Questions
-                                  join surveyresponse in db.SurveyResponses on survey.ID equals surveyresponse.SurveyID
-                                  // responses of Survey
-                                  join responsefilledby in db.Users on surveyresponse.FilledBy equals responsefilledby.ID
-                                  // Response Filled By
-                                  select new SurveyQuestionAnswerViewModel
-                                  {
-                                      Survey = survey,
-                                      Response = surveyresponse,
-                                      SurveyCreatedBy = surveyuser,
-                                      ResponseBy = responsefilledby,
-                                      UserRole = surveyuser.Role1
-                                  };
+                    // join table surveys to questions
+                    join survey in db.Surveys on sq.SurveyID equals survey.ID // link to Surveys
+                    join surveyuser in db.Users on survey.CreatedBy equals surveyuser.ID // Survey Created By
+                    join question in db.Questions on sq.QuestionID equals question.ID
+                    // link to Questions
+                    join surveyresponse in db.SurveyResponses on survey.ID equals surveyresponse.SurveyID
+                    // responses of Survey
+                    join responsefilledby in db.Users on surveyresponse.FilledBy equals responsefilledby.ID
+                    // Response Filled By
+                    select new SurveyQuestionAnswerViewModel
+                    {
+                        Survey = survey,
+                        Response = surveyresponse,
+                        SurveyCreatedBy = surveyuser,
+                        ResponseBy = responsefilledby,
+                        UserTakingSurveyRole = surveyuser.Role1
+                    };
 
                 toReturnCollection = surveyModel.ToList();
             }
 
             return toReturnCollection;
         }
-    }
 
-    public interface ISurveyManager
-    {
+        public static ISimpleSurveyManager GetQuestionManager()
+        {
+            return new SimpleSurveyManager(new QuestionRepository());
+        }
 
-        SurveyQuestionAnswerViewModel GetSurveyViewModelBySurveyId(int id);
-        bool? IsActive(int id);
+        public static ISimpleSurveyManager GetSurveymanager()
+        {
+            return new SimpleSurveyManager(new SurveyRepository());
+        }
+
+        public static ISimpleSurveyManager GetSurveyResponseManager()
+        {
+            return new SimpleSurveyManager(new SurveyResponsesRepository());
+        }
     }
 }
