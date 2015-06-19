@@ -1,0 +1,158 @@
+
+// base colors for CVS
+
+@CvsHealthWhite: #FFFFFF;
+@CvsHealthBlack: #000000;
+@CvsHealthIvory: #F0F0F0;
+@CvsHealthRed: #CB2026;
+@CvsHealthBlue: #81BCE7;
+@CvsHealthGreen: #A6CE39;
+@CvsHealthTeal: #39B9AA;
+@CvsHealthNavy: #003C54;
+@CvsHealthDarkGray: #646564;
+@CvsHealthLightGray: #ACACAC;
+
+
+// as per CVS colors, there is an allowance for 2 darker and 3 lighter version of each color
+@cvs-red-darkest: darken(@CvsHealthRed, 66.6%);
+@cvs-red-darker: darken(@CvsHealthRed, 33.3%);
+@cvs-red-dark: darken(@CvsHealthRed, 15.5%);
+@cvs-red: @CvsHealthRed;
+@cvs-red-light: lighten(@CvsHealthRed, 15.5%);
+@cvs-red-lighter:lighten(@CvsHealthRed, 33.3%);
+@cvs-red-lightest:lighten(@CvsHealthRed, 66.6%);
+
+@cvs-blue-darkest: darken(@CvsHealthBlue, 66.6%);
+@cvs-blue-darker: darken(@CvsHealthBlue, 33.3%);
+@cvs-blue-dark:darken(@CvsHealthBlue, 15.5%);
+@cvs-blue: @CvsHealthBlue;
+@cvs-blue-light: lighten(@CvsHealthBlue, 15.5%);
+@cvs-blue-lighter:lighten(@CvsHealthBlue, 33.3%);
+@cvs-blue-lightest:lighten(@CvsHealthBlue, 66.6%);
+
+@cvs-green-darkest:darken(@CvsHealthGreen, 66.6%);
+@cvs-green-darker: darken(@CvsHealthGreen, 33.3%);
+@cvs-green-dark:darken(@CvsHealthGreen, 15.5%);
+@cvs-green: @CvsHealthGreen;
+@cvs-green-light: lighten(@CvsHealthGreen, 15.5%);
+@cvs-green-lighter:lighten(@CvsHealthGreen, 33.3%);
+@cvs-green-lightest:lighten(@CvsHealthGreen, 66.6%);
+
+@cvs-teal-darkest:darken(@CvsHealthTeal, 66.6%);
+@cvs-teal-darker: darken(@CvsHealthTeal, 33.3%);
+@cvs-teal-dark:darken(@CvsHealthTeal, 15.5%);
+@cvs-teal: @CvsHealthTeal;
+@cvs-teal-light: lighten(@CvsHealthTeal, 15.5%);
+@cvs-teal-lighter:lighten(@CvsHealthTeal, 33.3%);
+@cvs-teal-lightest:lighten(@CvsHealthTeal, 66.6%);
+
+@cvs-navy-darkest:darken(@CvsHealthNavy, 66.6%);
+@cvs-navy-darker: darken(@CvsHealthNavy, 33.3%);
+@cvs-navy-dark:darken(@CvsHealthNavy, 15.5%);
+@cvs-navy: @CvsHealthNavy;
+@cvs-navy-light: lighten(@CvsHealthNavy, 15.5%);
+@cvs-navy-lighter:lighten(@CvsHealthNavy, 33.3%);
+@cvs-navy-lightest:lighten(@CvsHealthNavy, 66.6%);
+
+
+@CvsPanelBlue: #1B649D;
+@CvsPanelRed: #CB2026;
+@CvsPanelGreen: #A6CE39;
+
+@gray-darker: lighten(#000, 13.5%); // #222
+@gray-dark: lighten(#000, 20%); // #333
+@gray: lighten(#000, 33.5%); // #555
+@gray-light: lighten(#000, 46.7%); // #777
+@gray-lighter: lighten(#000, 93.5%); // #eee
+
+
+@brand-primary: @cvs-red-dark;
+@brand-success: @CvsHealthGreen;
+@brand-info: @CvsHealthBlue;
+@brand-warning: @CvsHealthTeal;
+@brand-danger: @cvs-red-light;
+
+// shades of cvs colors
+.cvsRed{
+color: @cvs-red;}
+.cvsRed-light{
+color: @cvs-red-light;}
+.cvsRed-lighter{
+color: @cvs-red-lighter;}
+.cvsRed-lightest{
+color: @cvs-red-lightest;}
+.cvsRed-dark{
+color: @cvs-red-dark;}
+.cvsRed-darker{
+color: @cvs-red-darker;}
+.cvsRed-darkest{
+color: @cvs-red-darkest;}
+
+.cvsBlue{
+color: @cvs-blue;}
+.cvsBlue-light{
+color: @cvs-blue-light;}
+.cvsBlue-lighter{
+color: @cvs-blue-lighter;}
+.cvsBlue-lightest{
+color: @cvs-blue-lightest;}
+.cvsBlue-dark{
+color: @cvs-blue-dark;}
+.cvsBlue-darker{
+color: @cvs-blue-darker;}
+.cvsBlue-darkest{
+color: @cvs-blue-darkest;}
+
+.cvsGreen{
+color: @cvs-green;}
+.cvsGreen-light{
+color: @cvs-green-light;}
+.cvsGreen-lighter{
+color: @cvs-green-lighter;}
+.cvsGreen-lightest{
+color: @cvs-green-lightest;}
+.cvsGreen-dark{
+color: @cvs-green-dark;}
+.cvsGreen-darker{
+color: @cvs-green-darker;}
+.cvsGreen-darkest{
+color: @cvs-green-darkest;}
+
+.cvsTeal{
+color: @cvs-teal;}
+.cvsTeal-light{
+color: @cvs-teal-light;}
+.cvsTeal-lighter{
+color: @cvs-teal-lighter;}
+.cvsTeal-lightest{
+color: @cvs-teal-lightest;}
+.cvsTeal-dark{
+color: @cvs-teal-dark;}
+.cvsTeal-darker{
+color: @cvs-teal-darker;}
+.cvsTeal-darkest{
+color: @cvs-teal-darkest;}
+
+.cvsNavy{
+color: @cvs-navy;}
+.cvsNavy-light{
+color: @cvs-navy-light;}
+.cvsNavy-lighter{
+color: @cvs-navy-lighter;}
+.cvsNavy-lightest{
+color: @cvs-navy-lightest;}
+.cvsNavy-dark{
+color: @cvs-navy-dark;}
+.cvsNavy-darker{
+color: @cvs-navy-darker;}
+.cvsNavy-darkest{
+color: @cvs-navy-darkest;}
+
+
+// -- MEDIA QUERIES
+@screen-sm-min : 768px;
+@screen-md-min : 992px;
+@screen-lg-min : 1200px;
+@screen-xs-max: (@screen-sm-min - 1);
+@screen-sm-max : (@screen-md-min - 1);
+@screen-md-max : (@screen-lg-min - 1);

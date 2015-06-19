@@ -1,0 +1,120 @@
+@import "cvsMobile.less";
+@navbarLinkColor: #fff;
+@navbarLinkColorHover: #ffd800;
+@navbarLinkColorActive: #eeeeee;
+@bgDefault: @CvsHealthRed;
+
+@bgHighlight: @cvs-red-dark; // outline for navbar and hamburger and hover for hamburger
+@colDefault: @CvsHealthIvory; // menu text
+@colHighlight: #fdd; // hover for menu text
+
+.navbar-default {
+    background-image: -webkit-linear-gradient(top, @CvsHealthRed 0, #981A1E 100%);
+    background-image: -o-linear-gradient(top, @CvsHealthRed 0, #981A1E 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(@CvsHealthRed), to(#981A1E));
+    background-image: linear-gradient(to bottom, @CvsHealthRed 0, #981A1E 100%);
+    /*    
+    filter: progid: 
+    DXImageTransform.Microsoft.gradient(
+    startColorstr='#ffCB2026', endColorstr='#ff981A1E', GradientType=0);
+    filter: progid: DXImageTransform.Microsoft.gradient(enabled=false);
+    */
+    
+    background-repeat: repeat-x;
+    background-color: @bgDefault;
+    border-color: @bgHighlight;
+    .navbar-brand {
+        color: @colDefault;
+        > i.icon-cvs-heart {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+        > .brand-text {
+            position: relative;
+            top: -5px;
+        }
+        &:hover,
+        &:focus {
+            //  background-color: @bgDefault; // this highlights bg of brand
+            color: @colHighlight;
+        }
+    }
+    .navbar-text {
+        color: @colDefault;
+    }
+    .navbar-nav {
+        > li {
+            > a {
+                color: @colDefault;
+                &:hover, &:focus {
+                    color: @colHighlight;
+                }
+            }
+        }
+        > .active {
+            > a, > a:hover, > a:focus {
+                color: @colHighlight;
+                background-color: @bgHighlight;
+            }
+        }
+        > .open {
+            > a, > a:hover, > a:focus {
+                color: @colHighlight;
+                background-color: @bgHighlight;
+            }
+        }
+
+         > .dropdown{
+            
+           >  a .caret {
+                border-top-color: @colDefault;
+                border-bottom-color: @colDefault;
+            }
+        }
+    }
+    .navbar-toggle {
+        border-color: @bgHighlight;
+        &:hover, &:focus {
+            background-color: @bgHighlight;
+        }
+        .icon-bar {
+            background-color: @colHighlight; // @colDefault;
+        }
+    }
+    .navbar-collapse,
+    .navbar-form {
+        border-color: transparent; //@colDefault;
+    }
+    .navbar-link {
+        color: @colDefault;
+        &:hover {
+            color: @colHighlight;
+        }
+    }
+}
+
+
+
+    /*.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+}*/
+
+
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu {
+        > li > a {
+            color: @colDefault;
+            &:hover, &:focus {
+                color: @colHighlight;
+            }
+        }
+        > .active {
+            > a, > a:hover, > a:focus, {
+                color: @colHighlight;
+                background-color: @bgHighlight;
+            }
+        }
+    }
+}

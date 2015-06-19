@@ -1,32 +1,89 @@
-﻿@model IEnumerable<ssWeb.Models.SurveyQuestionAnswerViewModel>
+﻿@model System.Collections.Generic.IEnumerable<ssWeb.Models.SurveyQuestionAnswerViewModel>
 @{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
     <h1>Demo Survey Engine</h1>
-    <p class="lead">This is a practice application built for the purpose of understanding needs in a flexible survey engine using Entity Framework, Unity and Moq</p>
-    <p><a href="https://github.com/pixelsyndicate/SimpleSurvey" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <p class="lead"><span class="icon-cvs-heart cvsRed pull-right" style="font-size: 4em;"></span>This is a practice application built for the purpose of understanding needs in a flexible survey engine using Entity Framework, Unity and Moq</p>
+    <p><a href="https://github.com/pixelsyndicate/SimpleSurvey" class="btn btn-info btn-lg">Learn more <span class="icon-cvs-bulb-question"></span></a></p>
 </div>
 
 <div class="row">
+    
     <div class="col-md-4">
-        <h2>Why MVC</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <div class="panel-cvs-teal">
+            <div class="header">
+                Why MVC
+                <div class="btn more pull-right" >
+                    more <i class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+            </div>
+            <div class="body col-sm-12">
+                <div class="">
+                    <div class="more pull-right"></div>
+                    <div class="pull-left value-lg">
+                        <i class="icon-cvs-people"></i>
+                    </div>
+                    <div class=" text col-sm-offset-1">Separation of Concerns</div>
+                </div>
+            </div>
+            <div class="footer container">
+                <p>
+                    ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+                    enables a clean separation of concerns and gives you full control over markup
+                    for enjoyable, agile development.
+                </p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
-        <h2>Extensible with NuGet</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <div class="panel-cvs-green">
+            <div class="header">
+                Questions
+                <div class="btn more pull-right" data-toggle="popover" title="Want More?" data-placement="left" data-content="This area might be informational, or drive to further content.">
+                    more <i class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+            </div>
+            <div class="body col-sm-12">
+                <div class="">
+                    <div class="more pull-right"></div>
+                    <div class="pull-left value-lg">
+                        <i class="icon-cvs-write"></i>
+                    </div>
+                    <div class=" text col-sm-offset-1">Extensible with NuGet</div>
+                </div>
+            </div>
+            <div class="footer container">
+                <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+                <p>
+                    <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a>
+                </p>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
-        <h2>Where would I host this</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <div class="panel-cvs-red">
+            <div class="header">
+                Questions
+                <div class="btn more pull-right" data-toggle="popover" title="Want More?" data-placement="left" data-content="This area might be informational, or drive to further content.">
+                    more <i class="glyphicon glyphicon-chevron-right"></i>
+                </div>
+            </div>
+            <div class="body col-sm-12">
+                <div class="">
+                    <div class="more pull-right"></div>
+                    <div class="pull-left value-lg"><i class="icon-cvs-bulb-question"></i></div>
+                    <div class=" text col-sm-offset-1">Where would I host this</div>
+                </div>
+            </div>
+            <div class="footer container">
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p>
+                    <a class="btn btn-info" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>

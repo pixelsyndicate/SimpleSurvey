@@ -63,8 +63,8 @@ namespace ssWeb.Tests.Repositories
             mockSurveyRepo.Setup(x => x.GetAll()).Returns(mockModels);
 
 
-            var list = new List<Survey> {new Survey()};
-            var surveyRepo = Mock.Of<ISurveyRepository>(x => x.GetAll().Equals(list));
+           // var list = new List<Survey> {new Survey()};
+           // var surveyRepo = Mock.Of<ISurveyRepository>(x => x.GetAll().Equals(list));
 
 
             var sMan = mockSurveyManager; // new SurveyManager(mockSurveyRepo.Object);
@@ -76,7 +76,7 @@ namespace ssWeb.Tests.Repositories
             // Assert
             Assert.IsNotNull(sMan);
 
-            Assert.IsNotNull(surveyRepo);
+           // Assert.IsNotNull(surveyRepo);
         }
 
         private SurveyQuestionAnswerViewModel CreateMockData()

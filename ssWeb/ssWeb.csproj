@@ -226,12 +226,57 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\cvsfonts.css">
+      <DependentUpon>cvsfonts.less</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsfonts.min.css">
+      <DependentUpon>cvsfonts.css</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsMobile.css">
+      <DependentUpon>cvsMobile.less</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsMobile.min.css">
+      <DependentUpon>cvsMobile.css</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsNavbar.css">
+      <DependentUpon>cvsNavbar.less</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsNavbar.min.css">
+      <DependentUpon>cvsNavbar.css</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsPanel.css">
+      <DependentUpon>cvsPanel.less</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsPanel.min.css">
+      <DependentUpon>cvsPanel.css</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
+    <Content Include="fonts\cvsico.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\cvsico.eot" />
+    <Content Include="fonts\cvsico.ttf" />
+    <Content Include="fonts\cvsico.woff" />
+    <Content Include="Content\cvsDashboard.less" />
+    <Content Include="Content\cvsfonts.less" />
+    <Content Include="Content\cvsMobile.less" />
+    <Content Include="Content\cvsNavbar.less" />
+    <Content Include="Content\cvsPanel.less" />
+    <Content Include="Content\cvsfonts.css.map">
+      <DependentUpon>cvsfonts.css</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsMobile.css.map">
+      <DependentUpon>cvsMobile.css</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsPanel.css.map">
+      <DependentUpon>cvsPanel.css</DependentUpon>
+    </Content>
+    <Content Include="Content\cvsNavbar.css.map">
+      <DependentUpon>cvsNavbar.css</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

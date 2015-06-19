@@ -1,0 +1,206 @@
+@import "cvsMobile.less";
+*[class^='panel-cvs-'] {
+    background-color: #fff;
+    border-style: solid;
+    border-color: #cecece;
+    border-width: 1px;
+    &> .header {
+        min-height: 50px;
+        padding-left: 15px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-size: 1.5em;
+        font-weight: 600;
+        &> .more {
+            padding-top: 6px;
+            padding-bottom: 0px;
+            padding-right: 10px;
+            font-weight: 400;
+            font-size: .8em;
+            ovtext-overflow: align-self;
+        }
+    }
+    &> .body {
+        color: inherit;
+        font-size: 1.2em;
+        min-height: 75px;
+        border-bottom-color: #cecece;
+        border-bottom-style: dashed;
+        border-bottom-width: thin;
+        margin-bottom: 5px;
+        padding-top: 25px;
+        &> .more {
+            padding-top: 6px;
+            padding-bottom: 0px;
+            padding-right: 10px;
+            font-weight: 400;
+            font-size: .8em;
+        }
+        .value-lg {
+            margin-top: -15px;
+            padding-right: 5px;
+            font-size: 2.5em;
+            font-weight: 600;
+            color: inherit;
+        }
+        .value-sm {
+            font-size: 1em;
+            font-weight: 600;
+        }
+        .value-med {
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+    }
+    &> .footer {
+        width: auto;
+        padding: 3px;
+        margin-bottom: 3px;
+        color: @CvsHealthDarkGray;
+        &> .top {
+            min-height: 50px;
+            margin-bottom: 5px;
+            &> .singleIcon {
+                // make it big for this demo
+                font-size: 3em;
+                font-weight: 600;
+            }
+            &> .text {
+                padding-top: 25px;
+                font-size: 1.6em;
+                padding-left: 10px;
+            }
+            &> .more {
+                padding-top: 25px;
+                font-weight: 400;
+                font-size: 2.0em;
+            }
+        }
+    }
+}
+
+.panel-cvs-navy {
+    &> .header {
+        color: #fff;
+        background-color: @cvs-navy; // @CvsHealthNavy;
+    }
+    &> .body {
+        .more {
+            color: @cvs-navy;
+        }
+        .value-lg,
+        .value-sm,
+        .value-md {
+            color: @cvs-navy;
+        }
+    }
+}
+
+.panel-cvs-red {
+    &> .header {
+        color: #fff;
+        background-color: @cvs-red;
+        .popover-content, .popover-title {
+            color: #000;
+        }
+        &> .more {
+            color: #fff;
+        }
+    }
+    &> .body {
+        .more {
+            color: @cvs-red-dark;
+        }
+        .value-lg,
+        .value-sm,
+        .value-md {
+            color: @cvs-red-dark;
+        }
+    }
+}
+
+.panel-cvs-blue {
+    &> .header {
+        color: #000;
+        background-color: @cvs-blue; // @CvsHealthNavy;
+    }
+    &> .body {
+        .more {
+            color: @cvs-blue-darker;
+        }
+        .value-lg,
+        .value-sm,
+        .value-md {
+            color: @cvs-blue-darker;
+        }
+    }
+}
+
+.panel-cvs-green {
+    color: @cvs-green-dark;
+    &> .header {
+        color: #000;
+        background-color: @cvs-green; // @CvsHealthNavy;
+    }
+    &> .body {
+        color: @cvs-green-darker;
+        .value-lg, .value-md, .value-sm, .more {
+            color: @cvs-green-dark;
+        }
+        .text {
+            color: inherit;
+        }
+    }
+    &> .footer {
+        .more, .singleIcon {
+            color: @cvs-green-dark;
+        }
+        .singleIcon + .text {
+            color: inherit;
+        }
+    }
+}
+
+.panel-cvs-teal {
+    &> .header {
+        color: #000;
+        background-color: @cvs-teal; // @CvsHealthNavy;
+    }
+    &> .body {
+        .more, .value-lg, .value-sm, .value-md {
+            color: @cvs-teal-dark;
+        }
+        .text {
+            color: inherit;
+        }
+    }
+    &> .singleIcon {
+        color: @cvs-teal-dark;
+    }
+}
+
+
+
+
+
+@media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+    *[class^='panel-cvs-'] > .header {
+        font-size: 1.2em;
+        padding-left: 8px;
+        padding-top: 15px;
+        padding-bottom: 0px;
+    }
+    *[class^='panel-cvs-'] > .header > .more {
+        font-size: .8em;
+        padding-left: 0px;
+        padding-top: 1px;
+        padding-bottom: 0px;
+    }
+}
+
+
+.font-showcase > i {
+    // increase the size of these fonts
+    font-size-adjust: auto;
+    font-size: 4em;
+}
