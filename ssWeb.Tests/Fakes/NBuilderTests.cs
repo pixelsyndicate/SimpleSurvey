@@ -20,6 +20,8 @@ public class NBuilderTests
 
         Assert.IsNotNull(users);
         Assert.IsTrue(users.Any());
+
+
     }
 
     private User GenerateSingleObject()
@@ -69,8 +71,7 @@ public class NBuilderTests
         var selector0 = Builder<SelectListHelper>
             .CreateListOfSize(4)
             .TheFirst(2)
-                .WithConstructor(() => new SelectListHelper(userRepo, roleRepo))
-            .AndTheNext(2)
+                .WithConstructor(() => new SelectListHelper(userRepo, roleRepo)).TheNext(2)
                 .WithConstructor(() => new SelectListHelper(userRepo, roleRepo))
             .Build();
         
@@ -95,10 +96,7 @@ public class NBuilderTests
 
 
         //WhereSection(x, y)
-        var selector3 = Builder<User>
-           .CreateListOfSize(30)
-                .WhereSection(12, 14).Have(x => x.FirstName = "JimBob")
-                .Build();
+        var selector3 = Builder<User>.CreateListOfSize(30).Section(12, 14).With(x => x.FirstName = "JimBob").Build();
 
         return users;
     }

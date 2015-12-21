@@ -277,6 +277,7 @@
     <Content Include="Content\cvsNavbar.css.map">
       <DependentUpon>cvsNavbar.css</DependentUpon>
     </Content>
+    <Content Include="Repositories\ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
